@@ -1,0 +1,10 @@
+enable (system):
+
+acpid
+nvidia-suspend
+nvidia-hibernate
+nvidia-resume
+
+enable (user):
+
+ssh-agent
