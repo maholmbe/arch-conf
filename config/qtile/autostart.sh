@@ -1,7 +1,6 @@
 #!/bin/sh
 
 autorandr -c
-#/usr/bin/lxqt-policykit-agent &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 picom -b
 nitrogen --restore & 
@@ -15,10 +14,10 @@ copyq &
 udiskie --tray &
 #rclone-browser &
 numlockx on
-#solaar --window hide &
 #aw-qt &    <--ActivityWatch
-#vivaldi &
 slack &
 qutebrowser &
+syncthing &
+syncthingtray &
 # wal -i ~/git-repos/dotfiles/wallpapers/legion
 # wal -R &

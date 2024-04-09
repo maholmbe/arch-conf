@@ -1,6 +1,10 @@
 acpid
+apr-util
+autorandr
 betterlockscreen
 blender
+blueman
+bluez
 bpytop
 copyq
 cuda
@@ -17,6 +21,7 @@ inkscape
 kitty
 krita
 less
+libxcrypt-compat
 mpv
 ncdu
 neofetch
@@ -42,6 +47,8 @@ qtile-extras
 qutebrowser
 rclone
 rofi
+syncthing
+syncthingtray
 trash-cli
 udiskie
 unzip
@@ -50,8 +57,10 @@ wget
 wireguard-tools
 x11-ssh-askpass
 xclip
+xdg-user-dirs
 xorg-fonts
 xorg-server
+xorg-xkill
 xorg-xrandr
 zsh
 
