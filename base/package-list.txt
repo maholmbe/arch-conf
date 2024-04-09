@@ -1,5 +1,6 @@
 acpid
 apr-util
+atool
 autorandr
 betterlockscreen
 blender
@@ -9,6 +10,7 @@ bpytop
 copyq
 cuda
 deadd-notification-center-bin
+dragon-drop
 fd
 flameshot
 fuse2
@@ -50,9 +52,12 @@ rofi
 syncthing
 syncthingtray
 trash-cli
+tree
 udiskie
 unzip
 virtualbox
+virtualbox-host-modules-arch
+virtualbox-unattended-templates
 wget
 wireguard-tools
 x11-ssh-askpass

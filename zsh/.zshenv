@@ -24,6 +24,7 @@ export TERM="xterm-kitty"
 export EDITOR="nvim"
 
 #nnn configuration
+export NNN_TERMINAL="xterm-kitty"
 export NNN_FIFO="/tmp/nnn.fifo"
 export NNN_TRASH=1
 export NNN_PLUG="f:finder;o:fzopen;p:preview-tui;d:dragdrop;t:nmount;l:launch;m:mimelist;k:kdeconnect"
