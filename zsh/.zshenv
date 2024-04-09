@@ -11,9 +11,9 @@
 #https://wiki.archlinux.org/title/SSH_keys#Start_ssh-agent_with_systemd_user
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
-#export SSH_ASKPASS=ssh-askpass
+export SSH_ASKPASS=ssh-askpass
 
-export PATH=$PATH:~/.local/bin:~/.config/rofi/bin
+export PATH=$PATH:~/.local/bin
 
 #export XCURSOR_PATH=${XCURSOR_PATH}:~/.local/share/icons
 

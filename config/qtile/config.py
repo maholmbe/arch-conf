@@ -196,7 +196,7 @@ widgets_primary = [
         fontsize=14,
         mouse_callbacks=({
             "Button1": lambda: qtile.cmd_spawn("pamixer -t"),
-            "Button3": lambda: qtile.cmd_spawn("pavucontrol-qt"),
+            "Button3": lambda: qtile.cmd_spawn("pavucontrol"),
             "Button4": lambda: qtile.cmd_spawn("pamixer -d 5 -u"),
             "Button5": lambda: qtile.cmd_spawn("pamixer -i 5 -u"),
         }),
