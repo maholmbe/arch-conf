@@ -55,9 +55,9 @@ keys = [
     Key("M-S-C-l", lazy.layout.swap_column_right()),
 
     # System Controls
-    Key("<XF86AudioLowerVolume>", lazy.spawn("amixer -M set Master 5%- unmute")),
-    Key("<XF86AudioRaiseVolume>", lazy.spawn("amixer -M set Master 5%+ unmute")),
-    Key("<XF86AudioMute>", lazy.spawn("amixer -M set Master toggle")),
+    Key("<XF86AudioLowerVolume>", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")),
+    Key("<XF86AudioRaiseVolume>", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+")),
+    Key("<XF86AudioMute>", lazy.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")),
 
     # Media keys
     Key("<XF86AudioPlay>",

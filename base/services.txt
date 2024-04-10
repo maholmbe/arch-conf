@@ -1,9 +1,11 @@
 enable (system):
 
 acpid
+bluetooth
 nvidia-suspend
 nvidia-hibernate
 nvidia-resume
+nvidia-powerd
 
 enable (user):
 

@@ -1,9 +1,6 @@
-# Use GTK styles for QT apps
-# requires qt5-style-plugins to be installed
-#export QT_STYLE_OVERRIDE="gtk2"
-#export QT_QPA_PLATFORMTHEME="gtk2"
-#export QT_QPA_PLATFORMTHEME="qt5ct"
-#export QT_FONT_DPI=96
+#Use kvantum enginge in QT theming, GTK apps can be set with lxappearance
+export QT_STYLE_OVERRIDE="kvantum"
+#export QT_QPA_PLATFORMTHEME="qt6ct"
 
 #export OCIO=~/git-repos/colormanagement/filmic-blender/config.ocio
 #export OCIO=~/git-repos/colormanagement/OpenColorIO-Configs/aces_1.0.3_blender/config.ocio
@@ -17,11 +14,11 @@ export PATH=$PATH:~/.local/bin
 
 #export XCURSOR_PATH=${XCURSOR_PATH}:~/.local/share/icons
 
-#export GTK_THEME=Adwaita:dark
-#export QT_STYLE_OVERRIDE=adwaita-dark
-
 export TERM="xterm-kitty"
 export EDITOR="nvim"
+
+#Expose local font directory to Fusion
+export FUSION_FONTS="~/.local/share/fonts"
 
 #nnn configuration
 export NNN_TERMINAL="xterm-kitty"
