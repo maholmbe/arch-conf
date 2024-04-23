@@ -6,6 +6,7 @@ picom -b
 nitrogen --restore & 
 deadd-notification-center &
 nm-applet &
+lxqt-powermanagement &
 flameshot &
 blueman-applet &
 #kdeconnect-indicator &
@@ -19,5 +20,6 @@ slack &
 qutebrowser &
 syncthing &
 syncthingtray &
+solaar --window hide &
 # wal -i ~/git-repos/dotfiles/wallpapers/legion
 # wal -R &

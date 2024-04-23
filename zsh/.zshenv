@@ -1,6 +1,6 @@
 #Use kvantum enginge in QT theming, GTK apps can be set with lxappearance
-export QT_STYLE_OVERRIDE="kvantum"
-#export QT_QPA_PLATFORMTHEME="qt6ct"
+#export QT_STYLE_OVERRIDE="kvantum"
+export QT_QPA_PLATFORMTHEME="qt6ct"
 
 #export OCIO=~/git-repos/colormanagement/filmic-blender/config.ocio
 #export OCIO=~/git-repos/colormanagement/OpenColorIO-Configs/aces_1.0.3_blender/config.ocio
@@ -16,6 +16,10 @@ export PATH=$PATH:~/.local/bin
 
 export TERM="xterm-kitty"
 export EDITOR="nvim"
+
+#Prime render offload needs these apparently (the number indicates the device ID so check it with 'xrandr --listproviders')
+export __NV_PRIME_RENDER_OFFLOAD=1
+export __GLX_VENDOR_LIBRARY_NAME=nvidia
 
 #Expose local font directory to Fusion
 export FUSION_FONTS="~/.local/share/fonts"

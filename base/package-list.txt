@@ -1,8 +1,10 @@
 acpid
 apr-util
+arandr
 atool
 autorandr
 betterlockscreen
+bitwarden-cli
 blender
 blueman
 bluez
@@ -10,13 +12,13 @@ bpytop
 breeze
 breeze-gtk
 breeze-icons
+brightnessctl
 copyq
 cuda
 deadd-notification-center-bin
 dragon-drop
 fd
 flameshot
-freecad
 fuse2
 fzf
 gimp
@@ -25,27 +27,31 @@ git-lfs
 hdparm
 imagemagick
 inkscape
+joshuto-bin
 kdenlive
 kitty
 krita
-kvantum
 less
 libxcrypt-compat
+logseq-desktop-bin
 lxappearance-gtk3
+lxqt-powermanagement
 mpv
 ncdu
 neofetch
 neovim
 nerd-fonts
 network-manager-applet
+nfs-utils
 nitrogen
 nnn
 nsxiv
 numlockx
 nvidia
 nvidia-settings
-okular
+oda-file-converter
 openssh
+opentabletdriver
 pavucontrol
 picom
 polkit-gnome
@@ -54,6 +60,7 @@ pyhton-psutil
 python-pywal
 python-tldextract
 qalculate-gtk
+qt6ct-kde
 qtile
 qtile-extras
 qutebrowser
@@ -61,13 +68,19 @@ rclone
 rofi
 rtkit
 slack-desktop
+solaar
 spotify
 syncthing
 syncthingtray
+task
+timew
+tlp
+tlpui
 trash-cli
 tree
 udiskie
 unzip
+upscayl
 virtualbox
 virtualbox-host-modules-arch
 virtualbox-unattended-templates
@@ -81,9 +94,29 @@ xorg-server
 xorg-xinput
 xorg-xkill
 xorg-xrandr
+yazi
+yt-dlp
+zathura
+zathura-pdf-poppler
 zsh
 
+For prime render offload install:
 
+nvidia-prime
+nvidia-prime-rtd3pm
 
-AUR helper
-https://github.com/Morganamilo/paru
+Additional stuff and notes:
+
+Install All FreeCAD Dependencies -> https://wiki.freecad.org/Compile_on_Linux.
+
+Use official FreeCAD appimage (just download from freecad.org) and build latest from git if needed. The Arch packages are crappy.
+
+Use the official Blender version instead of the packaged one - again the Arch package is crappy.
+
+brightnessctl -> Check Arch docs for udev rules assignment, otherwise only root can change backlight.
+
+solaar -> add user to plugdev group (create if not present)
+
+rclone and ssh secrets are stored elsewhere so remember to copy them over as well.
+
+Install an AUR helper -> https://github.com/Morganamilo/paru

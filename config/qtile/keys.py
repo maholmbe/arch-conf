@@ -73,8 +73,8 @@ keys = [
         desc='Audio previous'
         ),
 
-    Key("<XF86MonBrightnessDown>", lazy.spawn("light -U 10")),
-    Key("<XF86MonBrightnessUp>", lazy.spawn("light -A 10")),
+    Key("<XF86MonBrightnessUp>", lazy.spawn("brightnessctl -c backlight set +10%")),
+    Key("<XF86MonBrightnessDown>", lazy.spawn("brightnessctl -c backlight set 10%-")),
 
     # Applications launcher
     Key("M-r", lazy.spawn("rofi -show combi -modes combi -combi-modes 'drun,run' -icon-theme 'Papirus' -show-icons")),
