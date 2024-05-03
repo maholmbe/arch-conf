@@ -18,8 +18,8 @@ export TERM="xterm-kitty"
 export EDITOR="nvim"
 
 #Prime render offload needs these apparently (the number indicates the device ID so check it with 'xrandr --listproviders')
-export __NV_PRIME_RENDER_OFFLOAD=1
-export __GLX_VENDOR_LIBRARY_NAME=nvidia
+#export __NV_PRIME_RENDER_OFFLOAD=1
+#export __GLX_VENDOR_LIBRARY_NAME=nvidia
 
 #Expose local font directory to Fusion
 export FUSION_FONTS="~/.local/share/fonts"

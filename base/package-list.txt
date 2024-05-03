@@ -19,6 +19,7 @@ deadd-notification-center-bin
 dragon-drop
 fd
 flameshot
+flatpak
 fuse2
 fzf
 gimp
@@ -27,6 +28,7 @@ git-lfs
 hdparm
 imagemagick
 inkscape
+inxi
 joshuto-bin
 kdenlive
 kitty
@@ -36,6 +38,7 @@ libxcrypt-compat
 logseq-desktop-bin
 lxappearance-gtk3
 lxqt-powermanagement
+mesa-utils
 mpv
 ncdu
 neofetch
@@ -53,7 +56,7 @@ oda-file-converter
 openssh
 opentabletdriver
 pavucontrol
-picom
+# picom
 polkit-gnome
 python-dbus-next
 pyhton-psutil
@@ -78,6 +81,7 @@ tlp
 tlpui
 trash-cli
 tree
+ttf-ms-win11-auto
 udiskie
 unzip
 upscayl
@@ -98,7 +102,12 @@ yazi
 yt-dlp
 zathura
 zathura-pdf-poppler
+zoxide
 zsh
+
+If using Realtek 8153 usb adapter:
+
+r8152-dkms
 
 For prime render offload install:
 
