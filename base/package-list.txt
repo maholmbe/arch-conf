@@ -25,6 +25,8 @@ fzf
 gimp
 git
 git-lfs
+greetd
+greetd-tuigreet
 hdparm
 imagemagick
 inkscape
@@ -104,17 +106,25 @@ zathura
 zathura-pdf-poppler
 zoxide
 zsh
+zsh-autocomplete
+zsh-autosuggestions
+zsh-fast-syntax-highlighting
+zsh-syntax-highlighting
 
-If using Realtek 8153 usb adapter:
+## ZSH
+
+If Oh my ZSH is installed you may need to link the packaged zsh plugins into the Oh my ZSH plugins folder. 
+
+## If using Realtek 8153 usb adapter:
 
 r8152-dkms
 
-For prime render offload install:
+## For prime render offload install:
 
 nvidia-prime
 nvidia-prime-rtd3pm
 
-Additional stuff and notes:
+## Additional stuff and notes:
 
 Install All FreeCAD Dependencies -> https://wiki.freecad.org/Compile_on_Linux.
 
