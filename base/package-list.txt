@@ -113,7 +113,7 @@ zsh-syntax-highlighting
 
 ## ZSH
 
-If Oh my ZSH is installed you may need to link the packaged zsh plugins into the Oh my ZSH plugins folder. 
+Oh my ZSH is installed as a git submodule (zsh/.oh-my-zsh). Just make a link to $HOME/.oh-my-zsh. The zsh arch plugin packages are linked into .oh-my-zsh/custom/plugins.
 
 ## If using Realtek 8153 usb adapter:
 
