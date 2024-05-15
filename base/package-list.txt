@@ -8,26 +8,36 @@ bitwarden-cli
 blender
 blueman
 bluez
-bpytop
 breeze
 breeze-gtk
 breeze-icons
 brightnessctl
+btop
 copyq
 cuda
+darktable
 deadd-notification-center-bin
+digikam
+dosfstools
 dragon-drop
 fd
+findimagedupes
 flameshot
 flatpak
 fuse2
+fwupd
 fzf
+gdu
+geeqie
 gimp
 git
 git-lfs
+gnome-firmware
+gparted
 greetd
 greetd-tuigreet
 hdparm
+icc-adobe
 imagemagick
 inkscape
 inxi
@@ -37,12 +47,13 @@ kitty
 krita
 less
 libxcrypt-compat
+lm_sensors
 logseq-desktop-bin
 lxappearance-gtk3
 lxqt-powermanagement
 mesa-utils
 mpv
-ncdu
+mtools
 neofetch
 neovim
 nerd-fonts
@@ -58,7 +69,8 @@ oda-file-converter
 openssh
 opentabletdriver
 pavucontrol
-# picom
+pdfjs
+picom
 polkit-gnome
 python-dbus-next
 pyhton-psutil
@@ -69,6 +81,7 @@ qt6ct-kde
 qtile
 qtile-extras
 qutebrowser
+rawtherapee
 rclone
 rofi
 rtkit
@@ -139,3 +152,5 @@ solaar -> add user to plugdev group (create if not present)
 rclone and ssh secrets are stored elsewhere so remember to copy them over as well.
 
 Install an AUR helper -> https://github.com/Morganamilo/paru
+
+Install amd-ucode or intel-ucode depending on architecture and check if enabled (bootloader config)

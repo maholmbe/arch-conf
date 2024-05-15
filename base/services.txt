@@ -6,6 +6,7 @@ nvidia-suspend
 nvidia-hibernate
 nvidia-resume
 nvidia-powerd
+tlp
 
 enable (user):
 

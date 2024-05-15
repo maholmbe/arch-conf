@@ -1043,7 +1043,7 @@ c.colors.webpage.preferred_color_scheme = "dark"
 ## `:prompt-open-download --pdfjs` command (bound to `<Ctrl-p>` by
 ## default) can be used in the download prompt.
 ## Type: Bool
-c.content.pdfjs = True
+# c.content.pdfjs = True
 
 ## Allow websites to request persistent storage quota via
 ## `navigator.webkitPersistentStorage.requestQuota`.
