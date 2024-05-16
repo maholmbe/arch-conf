@@ -16,6 +16,7 @@ btop
 copyq
 cuda
 darktable
+dcraw
 deadd-notification-center-bin
 digikam
 dosfstools
