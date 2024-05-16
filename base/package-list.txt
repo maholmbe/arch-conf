@@ -46,6 +46,7 @@ joshuto-bin
 kdenlive
 kitty
 krita
+lazygit
 less
 libxcrypt-compat
 lm_sensors
@@ -155,3 +156,5 @@ rclone and ssh secrets are stored elsewhere so remember to copy them over as wel
 Install an AUR helper -> https://github.com/Morganamilo/paru
 
 Install amd-ucode or intel-ucode depending on architecture and check if enabled (bootloader config)
+
+xorg/40-libinput.conf should be linked to /usr/share/X11/xorg.conf.d/
