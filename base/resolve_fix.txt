@@ -1,10 +1,7 @@
 Resolve constantly fails with a symbol lookup error, fix it with:
 
-sudo cp /usr/lib64/libglib-2.0.so.0 /opt/resolve/libs/
-
-or if that won't work just copy everything over:
-
-libglib-2.0.so*
-libgio-2.0.so*
-libgmodule-2.0.so*
-libgobject-2.0.so*
+cd /opt/resolve/libs
+sudo mkdir disabled-libraries
+sudo mv libglib* disabled-libraries
+sudo mv libgio* disabled-libraries
+sudo mv libgmodule* disabled-libraries
