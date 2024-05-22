@@ -422,7 +422,7 @@ widgets_jco = [
         fontsize=14,
         mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(default_apps.myTerm + ' -e bpytop')},
         padding=0,
-        text=' '
+        text=' '
     ),
     widget.CPU(
         foreground=colours[3],
@@ -439,14 +439,14 @@ widgets_jco = [
         foreground=colours[4],
         font="JetBrainsMono Nerd Font Regular",
         fontsize=14,
-        mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(default_apps.myTerm + ' -e bpytop')},
+        mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(default_apps.myTerm + ' -e btop')},
         padding=0,
-        text='﬙ ',
+        text=' ',
     ),
     widget.Memory(
         foreground=colours[4],
         format='{MemUsed: .0f}{mm}/{MemTotal: .0f}{mm}',
-        mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(default_apps.myTerm + ' -e bpytop')},
+        mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(default_apps.myTerm + ' -e btop')},
     ),
     widget.Sep(
         foreground=colours[2],
@@ -458,7 +458,7 @@ widgets_jco = [
         font="JetBrainsMono Nerd Font Regular",
         fontsize=14,
         padding=0,
-        text=' ',
+        text='󰚰 ',
     ),
     widget.CheckUpdates(
         colour_have_updates=colours[5],
@@ -487,7 +487,7 @@ widgets_jco = [
             "Button5": lambda: qtile.cmd_spawn("amixer -M set Master 5%+ unmute"),
         }),
         padding=0,
-        text='墳 ',
+        text='󰕾 ',
     ),
     widget.Volume(
         foreground=colours[6],
@@ -504,7 +504,7 @@ widgets_jco = [
         font="JetBrainsMono Nerd Font Regular",
         fontsize=14,
         padding=0,
-        text='爵 ',
+        text='󰖟 ',
     ),
     widget.Net(
         foreground=colours[7],
@@ -521,7 +521,7 @@ widgets_jco = [
         font="JetBrainsMono Nerd Font Regular",
         fontsize=14,
         padding=0,
-        text=' ',
+        text='󰸗 ',
     ),
     widget.Clock(
         foreground=colours[8],

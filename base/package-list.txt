@@ -62,7 +62,7 @@ nerd-fonts
 network-manager-applet
 nfs-utils
 nitrogen
-nnn
+nnn-nerd
 nsxiv
 numlockx
 nvidia
