@@ -67,7 +67,7 @@ nsxiv
 numlockx
 nvidia
 nvidia-settings
-oda-file-converter
+# oda-file-converter
 openssh
 opentabletdriver
 pavucontrol
