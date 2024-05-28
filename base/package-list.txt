@@ -19,6 +19,7 @@ darktable
 dcraw
 deadd-notification-center-bin
 digikam
+dnsmasq
 dosfstools
 dragon-drop
 fd
@@ -158,3 +159,6 @@ Install an AUR helper -> https://github.com/Morganamilo/paru
 Install amd-ucode or intel-ucode depending on architecture and check if enabled (bootloader config)
 
 xorg/40-libinput.conf should be linked to /usr/share/X11/xorg.conf.d/
+
+Use dnsmasq with NetworkManager:
+https://wiki.archlinux.org/title/NetworkManager#DNS_caching_and_conditional_forwarding
