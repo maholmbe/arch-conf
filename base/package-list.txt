@@ -1,4 +1,5 @@
 acpid
+aerc
 apr-util
 arandr
 atool
@@ -94,6 +95,7 @@ spotify
 syncthing
 syncthingtray
 task
+thunderbird
 timew
 tlp
 tlpui

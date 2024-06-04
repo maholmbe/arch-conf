@@ -9,7 +9,7 @@ groups = [
     Group("2.MUSIC", layout="bsp", matches=[Match(wm_class=["Spotify", "Slack"])]),
     Group("3.EMAIL", layout="max"),
     Group("4.FILE", layout="bsp", spawn=["kitty -e nnn -de"]),
-    Group("5.DEV", layout="bsp", matches=[Match(wm_class=["code-oss", "code"])], spawn=["kitty -e nvim"]),
+    Group("5.DEV", layout="bsp", spawn=["kitty -e nvim"]),
     Group("6.TERM", layout="bsp", spawn=["kitty"]),
     Group("7.GFX", layout="bsp", matches=[Match(wm_class=["Inkscape", "krita", "Gimp-2.10"])]),
     Group("8.3D", layout="bsp", matches=[Match(wm_class=["FreeCAD", "Blender"])]),

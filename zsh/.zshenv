@@ -29,7 +29,7 @@ export NNN_TERMINAL="xterm-kitty"
 export NNN_FIFO="/tmp/nnn.fifo"
 export NNN_TRASH=1
 export NNN_PLUG="f:finder;o:fzopen;p:preview-tui;d:dragdrop;t:nmount;l:launch;m:mimelist;k:kdeconnect"
-export NNN_BMS="h:/home/mats;e:/run/media/mats;d:/home/mats/Downloads;n:/mnt/nfs_share;p:/srv/projects;r:/srv/render;m:/home/mats/.config/nnn/mounts"
+export NNN_BMS="h:/home/mats;e:/run/media/mats;d:/home/mats/Downloads;p:/srv/projects;r:/srv/render;m:/home/mats/.config/nnn/mounts;w:/work;g:/gdrive"
 export NNN_RCLONE='rclone mount --vfs-cache-mode writes'
 #export NNN_OPENER=/home/mats/.config/nnn/plugins/nuke
 #BLK="0B" CHR="0B" DIR="04" EXE="06" REG="00" HARDLINK="06" SYMLINK="06" MISSING="00" ORPHAN="09" FIFO="06" SOCK="0B" OTHER="06"
