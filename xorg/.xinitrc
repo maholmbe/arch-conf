@@ -50,3 +50,4 @@ xset r rate 500 50 #key repeat (xset r rate delay Hz)
 #exec xterm -geometry 80x66+0+0 -name login
 
 exec qtile start
+#exec dwm
