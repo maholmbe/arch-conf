@@ -119,6 +119,7 @@ xclip
 xdg-user-dirs
 xorg-fonts
 xorg-server
+xorg-xinit
 xorg-xinput
 xorg-xkill
 xorg-xrandr
