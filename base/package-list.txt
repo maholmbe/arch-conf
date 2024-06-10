@@ -23,6 +23,7 @@ digikam
 dnsmasq
 dosfstools
 dragon-drop
+evtest
 fd
 figlet
 findimagedupes
