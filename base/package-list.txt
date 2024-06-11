@@ -57,6 +57,8 @@ lm_sensors
 logseq-desktop-bin
 lxappearance-gtk3
 lxqt-powermanagement
+man-db
+man-pages
 mesa-utils
 mpv
 mtools
@@ -101,6 +103,7 @@ syncthingtray
 task
 thunderbird
 timew
+tldr
 tlp
 tlpui
 trash-cli

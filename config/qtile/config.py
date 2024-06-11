@@ -212,6 +212,7 @@ widgets_primary = [
         volume_up_command="wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
         mute_command="wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
         volume_app="pavucontrol",
+        fmt="{}",
     ),
     widget.Sep(
         foreground=colours[2],

@@ -7,7 +7,7 @@ from keys import keys
 groups = [
     Group("1.WEB", layout="max", matches=[Match(wm_class=["firefox", "vivaldi-stable", "qutebrowser"])]),
     Group("2.MUSIC", layout="bsp", matches=[Match(wm_class=["Spotify", "Slack"])]),
-    Group("3.EMAIL", layout="max"),
+    Group("3.EMAIL", layout="max", spawn=["kitty -e aerc"]),
     Group("4.FILE", layout="bsp", spawn=["kitty -e nnn -de"]),
     Group("5.DEV", layout="bsp", spawn=["kitty -e nvim"]),
     Group("6.TERM", layout="bsp", spawn=["kitty"]),

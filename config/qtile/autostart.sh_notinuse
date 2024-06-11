@@ -22,4 +22,4 @@ syncthing &
 syncthingtray &
 solaar --window hide &
 # wal -i ~/git-repos/dotfiles/wallpapers/legion
-# wal -R &
+# wal -R

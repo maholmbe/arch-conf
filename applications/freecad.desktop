@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=FreeCAD
+Exec=/opt/FreeCAD-0.21.2-Linux-x86_64.AppImage %f
+Icon=freecad
+Terminal=false
+Type=Application
+PrefersNonDefaultGPU=true
+X-KDE-RunOnDiscreteGpu=true

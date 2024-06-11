@@ -42,12 +42,24 @@ fi
 [ -f ~/.xprofile ] && . ~/.xprofile
 
 xset r rate 500 50 #key repeat (xset r rate delay Hz)
-
-#twm &
-#xclock -geometry 50x50-1+1 &
-#xterm -geometry 80x50+494+51 &
-#xterm -geometry 80x20+494-0 &
-#exec xterm -geometry 80x66+0+0 -name login
+numlockx on
+autorandr -c
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+picom -b
+nitrogen --restore & 
+deadd-notification-center &
+nm-applet &
+lxqt-powermanagement &
+flameshot &
+blueman-applet &
+udiskie --tray &
+slack &
+qutebrowser &
+syncthing &
+syncthingtray --wait &
+solaar --window hide &
+wal -R
+(sleep 5; copyq) &
 
 exec qtile start
 #exec dwm
