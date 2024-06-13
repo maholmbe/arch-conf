@@ -2,17 +2,12 @@
 #export QT_STYLE_OVERRIDE="kvantum"
 export QT_QPA_PLATFORMTHEME="qt6ct"
 
-#export OCIO=~/git-repos/colormanagement/filmic-blender/config.ocio
-#export OCIO=~/git-repos/colormanagement/OpenColorIO-Configs/aces_1.0.3_blender/config.ocio
-
 #https://wiki.archlinux.org/title/SSH_keys#Start_ssh-agent_with_systemd_user
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 export SSH_ASKPASS=ssh-askpass
 
 export PATH=$PATH:~/.local/bin
-
-#export XCURSOR_PATH=${XCURSOR_PATH}:~/.local/share/icons
 
 export TERM="xterm-kitty"
 export EDITOR="nvim"

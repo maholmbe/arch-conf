@@ -120,6 +120,8 @@ wget
 wireguard-tools
 x11-ssh-askpass
 xclip
+xdg-desktop-portal
+xdg-desktop-portal-gtk
 xdg-user-dirs
 xorg-fonts
 xorg-server

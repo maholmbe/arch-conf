@@ -1,0 +1,15 @@
+[Unit]
+Description=Mount NFS (/srv/projects) at boot
+Requires=NetworkManager-wait-online.service
+After=network-online.target
+Wants=network-online.target
+
+[Mount]
+What=10.8.0.1:/srv/projects
+Where=/srv/projects
+Options=rw,auto,x-systemd.automount,timeo=14
+Type=nfs
+TimeoutSec=30
+
+[Install]
+WantedBy=multi-user.target
