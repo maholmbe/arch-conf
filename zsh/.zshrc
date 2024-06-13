@@ -21,9 +21,8 @@ compinit
 source ~/git-repos/znap/znap.zsh  # Start Znap
 
 # `znap source` starts plugins.
-#znap source marlonrichert/zsh-autocomplete
 znap source zsh-users/zsh-autosuggestions
-znap source zsh-users/zsh-syntax-highlighting
+znap source zdharma-continuum/fast-syntax-highlighting
 znap source zsh-users/zsh-history-substring-search
 
 znap eval zoxide 'zoxide init zsh'
@@ -42,4 +41,4 @@ bindkey '^[[B' history-substring-search-down
 # &   # Run the process in the background.
 # ( ) # Hide shell job control messages.
 # Not supported in the "fish" shell.
-(cat ~/.cache/wal/sequences &)
+#(cat ~/.cache/wal/sequences &)
