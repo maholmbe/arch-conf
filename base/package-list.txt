@@ -56,7 +56,6 @@ libxcrypt-compat
 lm_sensors
 logseq-desktop-bin
 lxappearance-gtk3
-lxqt-powermanagement
 man-db
 man-pages
 mesa-utils
@@ -175,3 +174,7 @@ xorg/40-libinput.conf should be linked to /usr/share/X11/xorg.conf.d/
 
 Use dnsmasq with NetworkManager:
 https://wiki.archlinux.org/title/NetworkManager#DNS_caching_and_conditional_forwarding
+
+Power management:
+Disable USB_AUTOSUSPEND in /etc/tlp.conf is issues arise
+Modify laptop lid actions in /etc/systemd/login.conf

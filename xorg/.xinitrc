@@ -49,7 +49,6 @@ picom -b
 nitrogen --restore & 
 deadd-notification-center &
 nm-applet &
-lxqt-powermanagement &
 flameshot &
 blueman-applet &
 udiskie --tray &
