@@ -7,6 +7,9 @@ unsetopt beep
 bindkey -e
 # End of lines configured by zsh-newuser-install
 
+# Aliases
+alias ls='ls -l'
+
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/mats/.zshrc'
 
