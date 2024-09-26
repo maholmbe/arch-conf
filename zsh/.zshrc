@@ -10,6 +10,9 @@ bindkey -e
 # Aliases
 alias ls='ls -l'
 
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
+
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/mats/.zshrc'
 

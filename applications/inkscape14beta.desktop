@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Inkscape 1.4 beta
+Exec=/opt/Inkscape-9aaf4f3-x86_64.AppImage %f
+Icon=inkscape
+Terminal=false
+Type=Application
+PrefersNonDefaultGPU=true
+X-KDE-RunOnDiscreteGpu=true

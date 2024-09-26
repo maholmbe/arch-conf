@@ -57,7 +57,7 @@ qutebrowser &
 syncthing &
 syncthingtray --wait &
 solaar --window hide &
-wal -R
+#wal -R
 (sleep 5; copyq) &
 
 exec qtile start
