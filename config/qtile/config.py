@@ -345,7 +345,7 @@ widgets_jco = [
         linewidth=4,
     ),
     widget.Image(
-        filename=images_path + "jco-logo.svg",
+        filename=images_path + "py.png",
         mouse_callbacks={"Button1": lambda: qtile.cmd_spawn("rofi -show drun -icon-theme 'Papirus' -show-icons")},
         scale=True,
     ),
