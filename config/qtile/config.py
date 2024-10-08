@@ -1,544 +1,229 @@
-import os
-import socket
+# Copyright (c) 2010 Aldo Cortesi
+# Copyright (c) 2010, 2014 dequis
+# Copyright (c) 2012 Randall Ma
+# Copyright (c) 2012-2014 Tycho Andersen
+# Copyright (c) 2012 Craig Barnes
+# Copyright (c) 2013 horsik
+# Copyright (c) 2013 Tao Sauvage
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
 import subprocess
 
-from libqtile import bar, hook, layout, qtile
-from libqtile.config import EzClick as Click, EzDrag as Drag, EzKey as Key, Group, Match, Screen, ScratchPad, DropDown
+from libqtile import bar, layout, qtile, widget
+from libqtile.config import EzKey as Key, EzClick as Click, EzDrag as Drag, Group, Match, Screen, ScratchPad, DropDown
 from libqtile.lazy import lazy
-from qtile_extras import widget
-from qtile_extras.widget.decorations import PowerLineDecoration
+from libqtile.utils import guess_terminal
 
-from keys import keys, mouse
-from groups import groups
-from layouts import layouts, floating_layout
+mod = "mod4"
+terminal = guess_terminal()
 
+myTerm = "kitty"
+myBrowser = "qutebrowser"
+myFileManager = "kitty -e nnn -de"
+myMarkdown = "kitty -e nvim"
+myMusicPlayer = "spotify"
+myPDFReader = "zathura"
+myTextEditor = "kitty -e nvim"
 
-powerline = {
-    "decorations": [
-        PowerLineDecoration(path="forward_slash")
-    ]
-}
+@lazy.function
+def float_to_front(qtile):
+    logging.info("bring floating windows to front")
+    for group in qtile.groups:
+        for window in group.windows:
+            if window.floating:
+                window.cmd_bring_to_front()
 
-colours = [["#141414", "#141414"],  # 0 Background
-           ["#FFFFFF", "#FFFFFF"],  # 1 Foreground
-           ["#ABB2BF", "#ABB2BF"],  # 2 Grey Colour
-           ["#E35374", "#E35374"],  # 3
-           ["#89CA78", "#89CA78"],  # 4
-           ["#F0C674", "#F0C674"],  # 5
-           ["#61AFEF", "#61AFEF"],  # 6
-           ["#D55FDE", "#D55FDE"],  # 7
-           ["#2BBAC5", "#2BBAC5"]]  # 8
+keys = [
+    # Qtile Controls
+    Key("M-C-r", lazy.restart()),
+    Key("M-C-q", lazy.shutdown()),
 
-prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
+    # Window and Layout Controls
+    Key("M-k", lazy.layout.down()),
+    Key("M-j", lazy.layout.up()),
+    Key("M-h", lazy.layout.left()),
+    Key("M-l", lazy.layout.right()),
+    Key("A-<Tab>", lazy.layout.next()),
+    Key("M-<Tab>", lazy.spawn("rofi -show window -icon-theme 'Papirus' -show-icons")),
+    Key("M-S-k", lazy.layout.shuffle_down()),
+    Key("M-S-j", lazy.layout.shuffle_up()),
+    Key("M-S-h", lazy.layout.shuffle_left()),
+    Key("M-S-l", lazy.layout.shuffle_right()),
+    Key("M-A-k", lazy.layout.flip_down()),
+    Key("M-A-j", lazy.layout.flip_up()),
+    Key("M-A-h", lazy.layout.flip_left()),
+    Key("M-A-l", lazy.layout.flip_right()),
+    Key("M-C-k", lazy.layout.grow_down()),
+    Key("M-C-j", lazy.layout.grow_up()),
+    Key("M-C-h", lazy.layout.grow_left()),
+    Key("M-C-l", lazy.layout.grow_right()),
+    Key("M-S-n", lazy.layout.normalize()),
+    Key("M-<Return>", lazy.layout.toggle_split()),
+    Key("M-A-f", lazy.layout.flip()),
+    Key("M-A-g", lazy.layout.grow()),
+    Key("M-S-g", lazy.layout.grow_main()),
+    Key("M-A-s", lazy.layout.shrink()),
+    Key("M-S-s", lazy.layout.shrink_main()),
+    Key("M-n", lazy.layout.normalize()),
+    Key("C-A-S-<Tab>", lazy.next_layout()),
+    Key("M-w", lazy.window.kill()),
+    Key("M-f", lazy.window.toggle_floating()),
+    Key("M-s", lazy.window.toggle_fullscreen()),
+    Key("M-<period>", lazy.next_screen()),
+    Key("M-<comma>", lazy.prev_screen()),
+    Key("M-S-C-h", lazy.layout.swap_column_left()),
+    Key("M-S-C-l", lazy.layout.swap_column_right()),
 
-config_dir = os.path.dirname(__file__)
-images_path = os.path.join(config_dir, "images", "")
+    # System Controls
+    Key("<XF86AudioLowerVolume>", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")),
+    Key("<XF86AudioRaiseVolume>", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+")),
+    Key("<XF86AudioMute>", lazy.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")),
+
+    # Media keys
+    Key("<XF86AudioPlay>",
+        lazy.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify " "/org/mpris/MediaPlayer2 " "org.mpris.MediaPlayer2.Player.PlayPause"),
+        desc='Audio play'
+        ),
+    Key("<XF86AudioNext>",
+        lazy.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify " "/org/mpris/MediaPlayer2 " "org.mpris.MediaPlayer2.Player.Next"),
+        desc='Audio next'
+        ),
+    Key("<XF86AudioPrev>",
+        lazy.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify " "/org/mpris/MediaPlayer2 " "org.mpris.MediaPlayer2.Player.Previous"),
+        desc='Audio previous'
+        ),
+
+    Key("<XF86MonBrightnessUp>", lazy.spawn("brightnessctl -c backlight set +10%")),
+    Key("<XF86MonBrightnessDown>", lazy.spawn("brightnessctl -c backlight set 10%-")),
+
+    # Applications launcher
+    Key("M-r", lazy.spawn("rofi -show combi -modes combi -combi-modes 'drun,run' -icon-theme 'Papirus' -show-icons")),
+    # run apps with admin rights
+    Key("M-A-r", lazy.spawn("rofi -show combi -modes combi -combi-modes 'drun,run' -icon-theme 'Papirus' -show-icons -run-command 'xfsudo {cmd}'")),
+    Key("M-A-i", lazy.spawn(myBrowser)),
+    Key("M-e", lazy.spawn(myFileManager)),
+    Key("M-A-d", lazy.spawn(myMarkdown)),
+    Key("M-A-m", lazy.spawn(myMusicPlayer)),
+    Key("M-A-p", lazy.spawn(myPDFReader)),
+    Key("C-A-t", lazy.spawn(myTerm)),
+    Key("M-A-t", lazy.spawn(myTextEditor)),
+    Key("M-A-v", lazy.spawn("mpv")),
+    Key("C-A-l", lazy.spawn("betterlockscreen -l dimblur")),
+    # bring floating windows to the front
+    Key("M-S-f", float_to_front()),
+]
+
+groups = [
+    Group("1", layout="max", matches=[Match(wm_class=["firefox", "vivaldi-stable", "qutebrowser"])]),
+    Group("2", layout="bsp", matches=[Match(wm_class=["Spotify", "Slack"])]),
+    Group("3", layout="max", spawn=["kitty -e aerc"]),
+    Group("4", layout="bsp", spawn=["kitty -e nnn -de"]),
+    Group("5", layout="bsp", spawn=["kitty -e nvim"]),
+    Group("6", layout="bsp", spawn=["kitty"]),
+    Group("7", layout="bsp", matches=[Match(wm_class=["Inkscape", "krita", "Gimp-2.10"])]),
+    Group("8", layout="bsp", matches=[Match(wm_class=["FreeCAD", "Blender"])]),
+    Group("9", layout="bsp", matches=[Match(title=["Fusion Studio"])]),
+    Group("10", layout="bsp", matches=[Match(wm_class=["resolve"])]),
+    Group("F1", layout="bsp"),
+    Group("F2", layout="bsp"),
+    Group("F3", layout="bsp"),
+    Group("F4", layout="bsp")
+]
+
+for k, group in zip(["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "<F1>", "<F2>", "<F3>", "<F4>"], groups):
+    keys.append(Key("M-"+(k), lazy.group[group.name].toscreen(0)))   # Switch group on screen 0
+    keys.append(Key("M-C-"+(k), lazy.group[group.name].toscreen(1)))  # Switch group on screen 1
+    keys.append(Key("M-S-"+(k), lazy.window.togroup(group.name)))  # Send current window to another group
+
+# Append scratchpads with dropdowns
+groups.append(ScratchPad('scratchpad', [
+    DropDown('calc', 'qalculate-gtk', height=0.4, width=0.4, x=0.3, y=0.1),
+    DropDown('pyconsole', 'kitty -e python', height=0.4, width=0.5, x=0.25, y=0.3),
+]))
+
+# Extend keys list with with keybindings for scratchpad
+keys.extend([
+    Key("C-"+"1", lazy.group['scratchpad'].dropdown_toggle('calc')),
+    Key("C-"+"2", lazy.group['scratchpad'].dropdown_toggle('pyconsole')),
+])
+
+layout_defaults = dict(
+    border_focus = "#61AFEF",
+	border_normal = "#848484",
+	margin = 1,
+	border_width = 1
+)
+
+layouts = [
+    layout.Columns(num_columns=2, **layout_defaults),
+    layout.Max(**layout_defaults),
+    # layout.Stack(num_stacks=2),
+    layout.Bsp(**layout_defaults),
+    # layout.Matrix(),
+    # layout.MonadTall(),
+    # layout.MonadWide(),
+    # layout.RatioTile(),
+    # layout.Tile(),
+    # layout.TreeTab(),
+    # layout.VerticalTile(),
+    # layout.Zoomy(),
+]
 
 widget_defaults = dict(
-    background=colours[0],
-    foreground=colours[1],
     font="Hack Nerd Font",
     fontsize=12,
-    padding=1
+    padding=3,
 )
 extension_defaults = widget_defaults.copy()
 
 widgets_primary = [
-    widget.Sep(
-        foreground=colours[0],
-        linewidth=4,
-    ),
-    widget.Image(
-        filename=images_path + "py.png",
-        mouse_callbacks={"Button1": lambda: qtile.cmd_spawn("rofi -show drun -icon-theme 'Papirus' -show-icons")},
-        scale=True,
-        # background="555555",
-        # **powerline
-    ),
-    widget.Sep(
-        foreground=colours[2],
-        linewidth=1,
-        padding=10,
-    ),
-    widget.GroupBox(
-        active=colours[4],  # active group font color
-        inactive=colours[6],  # inactive group font color
-        other_current_screen_border=colours[2],  # Border or line colour for group on other screen when focused
-        other_screen_border=colours[2],  # Border or line colour for group on other screen when unfocused
-        this_current_screen_border=colours[7],  # Border or line colour for group on this screen when focused
-        this_screen_border=colours[7],  # Border or line colour for group on this screen when unfocused
-        urgent_border=colours[3],
-        urgent_text=colours[3],
-        disable_drag=True,
-        highlight_method='line',
-        borderwidth=2,
-        # highlight_color = colours[8],
-        invert_mouse_wheel=True,
-        margin=2,
-        padding=1,
-        rounded=True,
-        urgent_alert_method='text',
-        # background="000000",
-        # **powerline
-    ),
-    widget.Sep(
-        foreground=colours[2],
-        linewidth=1,
-        padding=10,
-    ),
-    widget.CurrentLayout(
-        foreground=colours[7],
-        font="SF Pro Text Semibold",
-    ),
-    widget.Sep(
-        foreground=colours[2],
-        linewidth=1,
-        padding=10,
-    ),
-    widget.Systray(
-        icon_size=14,
-        padding=4,
-    ),
-    widget.Cmus(
-        noplay_color=colours[2],
-        play_color=colours[1],
-    ),
-    widget.Sep(
-        foreground=colours[2],
-        linewidth=1,
-        padding=10,
-    ),
-    widget.WindowName(
-        max_chars = 120,
-    ),
-    widget.Spacer(),
-    widget.TextBox(
-        font = "JetBrainsMono Nerd Font Regular",
-        fontsize = 14,
-        padding = 0,
-        text = ' '
-    ),
-    widget.Mpris2(
-        display_metadata = ['xesam:title', 'xesam:artist'],
-        name = "spotify",
-        objname = "org.mpris.MediaPlayer2.spotify",
-        stop_pause_text = "Stopped",
-        scroll_chars = None
-    ),
-    widget.Sep(
-        foreground = colours[2],
-        linewidth = 1,
-        padding = 10,
-    ),
-    widget.TextBox(
-        foreground=colours[3],
-        font="JetBrainsMono Nerd Font Regular",
-        fontsize=14,
-        mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(default_apps.myTerm + ' -e bpytop')},
-        padding=0,
-        text=' '
-    ),
-    widget.CPU(
-        foreground=colours[3],
-        format='{freq_current}GHz {load_percent}%',
-        mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(default_apps.myTerm + ' -e bpytop')},
-        update_interval=1.0,
-    ),
-    widget.Sep(
-        foreground=colours[2],
-        linewidth=1,
-        padding=10,
-    ),
-    widget.TextBox(
-        foreground=colours[4],
-        font="JetBrainsMono Nerd Font Regular",
-        fontsize=14,
-        mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(default_apps.myTerm + ' -e bpytop')},
-        padding=0,
-        text='󰘚 ',
-    ),
-    widget.Memory(
-        foreground=colours[4],
-        format='{MemUsed: .0f}{mm}/{MemTotal: .0f}{mm}',
-        mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(default_apps.myTerm + ' -e bpytop')},
-    ),
-    widget.Sep(
-        foreground=colours[2],
-        linewidth=1,
-        padding=10,
-    ),
-    #    widget.TextBox(
-    #        foreground = colours[5],
-    #        font = "JetBrainsMono Nerd Font Regular",
-    #        fontsize = 14,
-    #        padding = 0,
-    #        text = ' ',
-    #    ),
-    #    widget.CheckUpdates(
-    #        colour_have_updates = colours[5],
-    #        colour_no_updates = colours[5],
-    #        custom_command = 'checkupdates',
-    #    #   custom_command = 'dnf updateinfo -q --list',
-    #        display_format = '{updates} Updates',
-    #    #   execute = "pkexec /usr/bin/dnf up -y",
-    #        execute = "pkexec /usr/bin/pacman -Syu --noconfirm",
-    #        no_update_string = 'Up to date!',
-    #        update_interval = 900,
-    #    ),
-    #    widget.Sep(
-    #        foreground = colours[2],
-    #        linewidth = 1,
-    #        padding = 10,
-    #    ),
-    widget.TextBox(
-        foreground=colours[6],
-        font="JetBrainsMono Nerd Font Regular",
-        fontsize=14,
-        mouse_callbacks=({
-            "Button1": lambda: qtile.cmd_spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
-            "Button3": lambda: qtile.cmd_spawn("pavucontrol"),
-            "Button4": lambda: qtile.cmd_spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
-            "Button5": lambda: qtile.cmd_spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"),
-        }),
-        padding=0,
-        text=' ',
-    ),
-    widget.Volume(
-        foreground=colours[6],
-        # mouse_callbacks={"Button3": lambda: qtile.cmd_spawn("pavucontrol")},
-        step=5,
-        get_volume_command="wpctl get-volume @DEFAULT_AUDIO_SINK@",
-        volume_down_command="wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+",
-        volume_up_command="wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
-        mute_command="wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
-        volume_app="pavucontrol",
-        fmt="{}",
-    ),
-    widget.Sep(
-        foreground=colours[2],
-        linewidth=1,
-        padding=10,
-    ),
-    widget.TextBox(
-        foreground=colours[7],
-        font="JetBrainsMono Nerd Font Regular",
-        fontsize=14,
-        padding=0,
-        text='󰖟 ',
-    ),
-    widget.Net(
-        # width = 100,
-        foreground=colours[7],
-        # format='{down:.0f}{down_suffix} ↓↑ {up:.0f}{up_suffix}',
-        # prefix = 'M',
-    ),
-    widget.Sep(
-        foreground=colours[2],
-        linewidth=1,
-        padding=10,
-    ),
-    widget.Battery(
-        foreground=colours[7],
-        low_foreground=colours[3],
-        charge_char='󰂄 ',
-        discharge_char='󰁿 ',
-        empty_char='󰂎 ',
-        full_char='󰁹 ',
-        unknown_char='󰂑 ',
-        font="JetBrainsMono Nerd Font Regular",
-        fontsize=14,
-        format='{char}',
-        low_percentage=0.2,
-        padding=0,
-        show_short_text=False,
-    ),
-    widget.Battery(
-        foreground=colours[7],
-        low_foreground=colours[3],
-        format='{percent:2.0%}',
-        low_percentage=0.2,
-        notify_below=20,
-        background="000000",
-        **powerline
-    ),
-    #    widget.Sep(
-    #        foreground = colours[2],
-    #        linewidth = 1,
-    #        padding = 10,
-    #    ),
-    widget.TextBox(
-        foreground=colours[8],
-        font="JetBrainsMono Nerd Font Regular",
-        fontsize=14,
-        # padding = 20,
-        text='󱛡 ',
-        background="222222",
-    ),
-    widget.Clock(
-        foreground=colours[8],
-        format='%a %b %d  %H:%M   ',
-        background="222222",
+    
+    widget.CurrentLayout(),
+    widget.GroupBox(),
+    widget.Prompt(),
+    widget.WindowName(),
+    widget.Chord(
+        chords_colors={
+            "launch": ("#ff0000", "#ffffff"),
+        },
+        name_transform=lambda name: name.upper(),
     ),
 ]
 
 widgets_secondary = [
-    widget.Sep(
-        foreground=colours[0],
-        linewidth=4,
+    
+    widget.CurrentLayout(),
+    widget.GroupBox(),
+    widget.Prompt(),
+    widget.WindowName(),
+    widget.Chord(
+        chords_colors={
+            "launch": ("#ff0000", "#ffffff"),
+        },
+        name_transform=lambda name: name.upper(),
     ),
-    widget.Image(
-        filename=images_path + "py.png",
-        mouse_callbacks={"Button1": lambda: qtile.cmd_spawn("rofi -show drun -icon-theme 'Papirus' -show-icons")},
-        scale=True,
-    ),
-    widget.Sep(
-        foreground=colours[2],
-        linewidth=1,
-        padding=10,
-    ),
-    widget.GroupBox(
-        active=colours[4],  # active group font color
-        inactive=colours[6],  # inactive group font color
-        other_current_screen_border=colours[7],  # Border or line colour for group on other screen when focused
-        other_screen_border=colours[7],  # Border or line colour for group on other screen when unfocused
-        this_current_screen_border=colours[2],  # Border or line colour for group on this screen when focused
-        this_screen_border=colours[2],  # Border or line colour for group on this screen when unfocused
-        urgent_border=colours[3],
-        urgent_text=colours[3],
-        disable_drag=True,
-        highlight_method='line',
-        borderwidth=2,
-        # highlight_color = colours[8],
-        invert_mouse_wheel=True,
-        margin=2,
-        padding=1,
-        rounded=True,
-        urgent_alert_method='text',
-    ),
-    widget.Sep(
-        foreground=colours[2],
-        linewidth=1,
-        padding=10,
-    ),
-    widget.CurrentLayout(
-        foreground=colours[7],
-        font="SF Pro Text Semibold",
-    ),
-    widget.Sep(
-        foreground=colours[2],
-        linewidth=1,
-        padding=10,
-    ),
-    #    widget.WindowName(
-    #        max_chars = 75,
-    #    ),
-    widget.Spacer(),
-    widget.Clock(
-        foreground=colours[8],
-        format='%a %b %d  %H:%M   ',
-    ),
+    widget.Systray(),
+    widget.Clock(format="%m.%d.%Y %a %H:%M"),
 ]
 
-widgets_jco = [
-    widget.Sep(
-        foreground=colours[0],
-        linewidth=4,
-    ),
-    widget.Image(
-        filename=images_path + "py.png",
-        mouse_callbacks={"Button1": lambda: qtile.cmd_spawn("rofi -show drun -icon-theme 'Papirus' -show-icons")},
-        scale=True,
-    ),
-    widget.Sep(
-        foreground=colours[2],
-        linewidth=1,
-        padding=10,
-    ),
-    widget.GroupBox(
-        active=colours[4],  # active group font color
-        inactive=colours[6],  # inactive group font color
-        other_current_screen_border=colours[2],  # Border or line colour for group on other screen when focused
-        other_screen_border=colours[2],  # Border or line colour for group on other screen when unfocused
-        this_current_screen_border=colours[7],  # Border or line colour for group on this screen when focused
-        this_screen_border=colours[7],  # Border or line colour for group on this screen when unfocused
-        urgent_border=colours[3],
-        urgent_text=colours[3],
-        disable_drag=True,
-        highlight_method='line',
-        borderwidth=2,
-        # highlight_color = colours[8],
-        invert_mouse_wheel=True,
-        margin=2,
-        padding=1,
-        rounded=True,
-        urgent_alert_method='text',
-    ),
-    widget.Sep(
-        foreground=colours[2],
-        linewidth=1,
-        padding=10,
-    ),
-    widget.CurrentLayout(
-        foreground=colours[7],
-        font="SF Pro Text Semibold",
-    ),
-    widget.Systray(
-        icon_size=14,
-        padding=4,
-    ),
-    widget.Cmus(
-        noplay_color=colours[2],
-        play_color=colours[1],
-    ),
-    widget.Sep(
-        foreground=colours[2],
-        linewidth=1,
-        padding=10,
-    ),
-    widget.WindowName(
-        max_chars=75,
-    ),
-    widget.TextBox(
-        font="JetBrainsMono Nerd Font Regular",
-        fontsize=14,
-        padding=0,
-        text=' '
-    ),
-    widget.Mpris2(
-        display_metadata=['xesam:title', 'xesam:artist'],
-        name="spotify",
-        objname="org.mpris.MediaPlayer2.spotify",
-        stop_pause_text="Stopped",
-        padding=4,
-        scroll_chars=None
-    ),
-    widget.Sep(
-        foreground=colours[2],
-        linewidth=1,
-        padding=10,
-    ),
-    widget.TextBox(
-        foreground=colours[3],
-        font="JetBrainsMono Nerd Font Regular",
-        fontsize=14,
-        mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(default_apps.myTerm + ' -e bpytop')},
-        padding=0,
-        text=' '
-    ),
-    widget.CPU(
-        foreground=colours[3],
-        format='{freq_current}GHz {load_percent}%',
-        mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(default_apps.myTerm + ' -e bpytop')},
-        update_interval=1.0,
-    ),
-    widget.Sep(
-        foreground=colours[2],
-        linewidth=1,
-        padding=10,
-    ),
-    widget.TextBox(
-        foreground=colours[4],
-        font="JetBrainsMono Nerd Font Regular",
-        fontsize=14,
-        mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(default_apps.myTerm + ' -e btop')},
-        padding=0,
-        text=' ',
-    ),
-    widget.Memory(
-        foreground=colours[4],
-        format='{MemUsed: .0f}{mm}/{MemTotal: .0f}{mm}',
-        mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(default_apps.myTerm + ' -e btop')},
-    ),
-    widget.Sep(
-        foreground=colours[2],
-        linewidth=1,
-        padding=10,
-    ),
-    widget.TextBox(
-        foreground=colours[5],
-        font="JetBrainsMono Nerd Font Regular",
-        fontsize=14,
-        padding=0,
-        text='󰚰 ',
-    ),
-    widget.CheckUpdates(
-        colour_have_updates=colours[5],
-        colour_no_updates=colours[5],
-        custom_command='checkupdates',
-        #   custom_command = 'dnf updateinfo -q --list',
-        display_format='{updates} Updates',
-        #   execute = "pkexec /usr/bin/dnf up -y",
-        execute="pkexec /usr/bin/pacman -Syu --noconfirm",
-        no_update_string='Up to date!',
-        update_interval=900,
-    ),
-    widget.Sep(
-        foreground=colours[2],
-        linewidth=1,
-        padding=10,
-    ),
-    widget.TextBox(
-        foreground=colours[6],
-        font="JetBrainsMono Nerd Font Regular",
-        fontsize=14,
-        mouse_callbacks=({
-            "Button1": lambda: qtile.cmd_spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
-            "Button3": lambda: qtile.cmd_spawn("pavucontrol"),
-            "Button4": lambda: qtile.cmd_spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
-            "Button5": lambda: qtile.cmd_spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"),
-        }),
-        padding=0,
-        text=' ',
-    ),
-    widget.Volume(
-        foreground=colours[6],
-        # mouse_callbacks={"Button3": lambda: qtile.cmd_spawn("pavucontrol")},
-        step=5,
-        get_volume_command="wpctl get-volume @DEFAULT_AUDIO_SINK@",
-        volume_down_command="wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+",
-        volume_up_command="wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
-        mute_command="wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
-        volume_app="pavucontrol",
-        fmt="{}",
-    ),
-    widget.Sep(
-        foreground=colours[2],
-        linewidth=1,
-        padding=10,
-    ),
-    widget.TextBox(
-        foreground=colours[7],
-        font="JetBrainsMono Nerd Font Regular",
-        fontsize=14,
-        padding=0,
-        text='󰖟 ',
-    ),
-    widget.Net(
-        foreground=colours[7],
-        format='{interface}: U {up} D {down}',
-        prefix='M',
-    ),
-    widget.Sep(
-        foreground=colours[2],
-        linewidth=1,
-        padding=10,
-    ),
-    widget.TextBox(
-        foreground=colours[8],
-        font="JetBrainsMono Nerd Font Regular",
-        fontsize=14,
-        padding=0,
-        text='󰸗 ',
-    ),
-    widget.Clock(
-        foreground=colours[8],
-        format='%a %b %d  %H:%M    ',
-    ),
-]
-
-
-def status_bar(widgets): return bar.Bar(widgets, 20, opacity=0.8)
-
+def status_bar(widgets): return bar.Bar(widgets, 24, opacity=0.8)
 
 connected_monitors = subprocess.run(
     "xrandr | grep 'connected' | cut -d ' ' -f 2",
@@ -546,63 +231,68 @@ connected_monitors = subprocess.run(
     stdout=subprocess.PIPE
 ).stdout.decode("UTF-8").split("\n")[:-1].count("connected")
 
-if socket.gethostname() == "asus-arch":  # if we are on asus-arch
-
-    if connected_monitors > 1:
-        # for i in range(1, connected_monitors):
-        #   screens.append(Screen(top=status_bar(widgets)))
-        screens = [
-            Screen(
-                top=status_bar(widgets_jco)
-            ),
-            Screen(
-                top=status_bar(widgets_secondary)
-            )
-        ]
-    else:
-        screens = [
-            Screen(
-                top=status_bar(widgets_jco)
-            )
-        ]
-
+if connected_monitors > 1:
+    screens = [
+        Screen(
+            bottom=status_bar(widgets_primary)
+        ),
+        Screen(
+            bottom=status_bar(widgets_secondary)
+        )
+    ]
 else:
+    screens = [
+        Screen(
+            top=status_bar(widgets_secondary)
+        )
+    ]
 
-    if connected_monitors > 1:
-        screens = [
-            Screen(
-                top=status_bar(widgets_primary)
-            ),
-            Screen(
-                top=status_bar(widgets_secondary)
-            )
-        ]
-    else:
-        screens = [
-            Screen(
-                top=status_bar(widgets_primary)
-            )
-        ]
+# Drag floating layouts.
+mouse = [
+    Drag("M-1", lazy.window.set_position_floating(),
+         start=lazy.window.get_position()),
+    Drag("M-3", lazy.window.set_size_floating(),
+         start=lazy.window.get_size()),
+    Click("M-2", lazy.window.bring_to_front())
+]
 
-auto_fullscreen = True
-auto_minimize = True
-bring_front_click = False
-cursor_warp = False
-dgroups_app_rules = []  # type: List
 dgroups_key_binder = None
-focus_on_window_activation = "smart"
+dgroups_app_rules = []  # type: list
 follow_mouse_focus = True
-reconfigure_screens = True
+bring_front_click = False
 floats_kept_above = True
+cursor_warp = False
+floating_layout = layout.Floating(
+    float_rules=[
+        # Run the utility of `xprop` to see the wm class and name of an X client.
+        *layout.Floating.default_float_rules,
+        Match(wm_class="confirmreset"),  # gitk
+        Match(wm_class="makebranch"),  # gitk
+        Match(wm_class="maketag"),  # gitk
+        Match(wm_class="ssh-askpass"),  # ssh-askpass
+        Match(wm_class="confirm"),
+        Match(wm_class="dialog"),
+        Match(wm_class="download"),
+        Match(wm_class="error"),
+        Match(wm_class="file_progress"),
+        Match(wm_class="notification"),
+        Match(wm_class="notify"),
+        Match(wm_class="popup_menu"),
+        Match(wm_class="splash"),
+        Match(wm_class="toolbar"),
+        Match(title="Blender Preferences"),
+        Match(title="branchdialog"),  # gitk
+        Match(title="pinentry"),  # GPG key password entry
+    ]
+)
+auto_fullscreen = True
+focus_on_window_activation = "smart"
+reconfigure_screens = True
 
+# If things like steam games want to auto-minimize themselves when losing
+# focus, should we respect this or not?
+auto_minimize = True
 
-@hook.subscribe.startup_once
-def autostart():
-    home = os.path.expanduser('~/.config/qtile/autostart.sh')
-    subprocess.Popen([home])
-
-
-# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the
 # mailing lists, GitHub issues, and other WM documentation that suggest setting

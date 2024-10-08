@@ -1,6 +1,6 @@
 [Desktop Entry]
-Name=Inkscape 1.4 beta
-Exec=/opt/Inkscape-9aaf4f3-x86_64.AppImage %f
+Name=Inkscape 1.4 RC1
+Exec=/opt/Inkscape-1.4RC1.AppImage %f
 Icon=inkscape
 Terminal=false
 Type=Application
