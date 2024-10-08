@@ -47,10 +47,11 @@ autorandr -c
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 picom -b
 nitrogen --restore & 
-deadd-notification-center &
+#deadd-notification-center &
+dunst &
 nm-applet &
 flameshot &
-blueman-applet &
+#blueman-applet &
 udiskie --tray &
 slack &
 qutebrowser &
@@ -58,6 +59,7 @@ syncthing &
 syncthingtray --wait &
 solaar --window hide &
 #wal -R
+/home/mats/.config/conky/conky-startup.sh &
 (sleep 5; copyq) &
 
 exec qtile start

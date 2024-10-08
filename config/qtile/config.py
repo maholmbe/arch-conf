@@ -195,32 +195,33 @@ extension_defaults = widget_defaults.copy()
 
 widgets_primary = [
     
+    widget.CurrentLayoutIcon(),
     widget.CurrentLayout(),
-    widget.GroupBox(),
-    widget.Prompt(),
-    widget.WindowName(),
-    widget.Chord(
-        chords_colors={
-            "launch": ("#ff0000", "#ffffff"),
-        },
-        name_transform=lambda name: name.upper(),
-    ),
+    widget.GroupBox(highlight_method="block"),
+    widget.TaskList(),
+#    widget.Chord(
+#        chords_colors={
+#            "launch": ("#ff0000", "#ffffff"),
+#        },
+#        name_transform=lambda name: name.upper(),
+#    ),
 ]
 
 widgets_secondary = [
     
+    widget.CurrentLayoutIcon(),
     widget.CurrentLayout(),
-    widget.GroupBox(),
-    widget.Prompt(),
-    widget.WindowName(),
-    widget.Chord(
-        chords_colors={
-            "launch": ("#ff0000", "#ffffff"),
-        },
-        name_transform=lambda name: name.upper(),
-    ),
+    widget.GroupBox(highlight_method="block"),
+    widget.TaskList(),
+#    widget.Chord(
+#        chords_colors={
+#            "launch": ("#ff0000", "#ffffff"),
+#        },
+#        name_transform=lambda name: name.upper(),
+#    ),
     widget.Systray(),
     widget.Clock(format="%m.%d.%Y %a %H:%M"),
+    widget.Spacer(length=30),
 ]
 
 def status_bar(widgets): return bar.Bar(widgets, 24, opacity=0.8)
